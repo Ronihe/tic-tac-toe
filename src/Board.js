@@ -1,30 +1,24 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
+import Square from './Square';
 
 class Board extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {}
-
-  handleChange = evt => {
-    this.setState({
-      [evt.target.name]: evt.target.value
-    });
-  };
-
-  handleSubmit = evt => {
-    evt.preventDefault();
-  };
-
   render() {
-    return <div className="Board" />;
+    const board = this.props.board;
+    return board.map(row => (
+      <div>
+        {row.map(col => (
+          <Square value={col} onCick={this.props.onClick} />
+        ))}
+        )
+      </div>
+    ));
   }
 }
 
-Board.defaultProps = {};
+Board.defaultProps = { board: [] };
 
-Board.propTypes = {};
+Board.propTypes = {
+  board: PropTypes.array
+};
 
 export default Board;
